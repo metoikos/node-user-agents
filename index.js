@@ -229,7 +229,7 @@ module.exports = class UserAgentParser {
     }
 
     /**
-     * Returns device category based on assumptions
+     *  
      * @returns {String}
      */
     getDevice() {
