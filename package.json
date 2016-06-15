@@ -1,0 +1,24 @@
+{
+  "name": "node-user-agents",
+  "version": "1.0.0",
+  "description": "Extened useragent parser for Node. Uses useragent  and extends its functionality ",
+  "main": "index.js",
+  "scripts": {
+    "test": "lab --coverage-exclude coverage -m 5000 -t 100 -a code -L"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/metoikos/node-user-agents.git"
+  },
+  "keywords": [
+    "useragents",
+    "browser",
+    "device"
+  ],
+  "author": "Yılmaz Uğurlu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/metoikos/node-user-agents/issues"
+  },
+  "homepage": "https://github.com/metoikos/node-user-agents#readme"
+}
