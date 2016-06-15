@@ -4,7 +4,7 @@
   "description": "Extended useragent parser for Node. Uses useragent  and extends its functionality ",
   "main": "index.js",
   "scripts": {
-    "test": "lab --coverage-exclude coverage -m 5000 -t 100 -a code"
+    "test": "lab --coverage-exclude coverage -m 5000 -a code"
   },
   "repository": {
     "type": "git",
