@@ -7,6 +7,12 @@ Extends [useragents] module and provides [python-user-agents] like functionality
 [python-user-agents]: https://github.com/selwin/python-user-agents
 [useragents]: https://github.com/3rd-Eden/useragent
 
+### Installation:
+
+```no-highlight
+npm install --save node-user-agents
+```
+
 ### Usage:
 ```js
 const UserAgent = require('node-user-agents');
