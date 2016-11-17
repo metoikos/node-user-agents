@@ -63,14 +63,26 @@ module.exports = class UserAgentParser {
     /**
      * Takes user agent string and parses with useragent library
      * @param {String} uaString
+     * @param {Object} [options]
+     * @param {boolean} [options.update]
+     * @param {boolean} [options.lookup]
      */
-    constructor(uaString) {
+    constructor(uaString, options) {
 
         if (!uaString || typeof uaString !== 'string') {
             throw new Error('Invalid useragent string!');
         }
         this.agentStr = uaString;
-        this.userAgent = useragent.parse(uaString);
+        if (options) {
+            if (options.update) {
+                useragent(true);
+            }
+            if (options.lookup) {
+                this.userAgent = useragent.lookup(uaString)
+            }
+        } else {
+            this.userAgent = useragent.parse(uaString)
+        };
     }
 
 
@@ -229,7 +241,7 @@ module.exports = class UserAgentParser {
     }
 
     /**
-     *  
+     *
      * @returns {String}
      */
     getDevice() {
