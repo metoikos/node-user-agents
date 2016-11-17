@@ -78,10 +78,10 @@ module.exports = class UserAgentParser {
                 useragent(true);
             }
             if (options.lookup) {
-                this.userAgent = useragent.lookup(uaString)
+                this.userAgent = useragent.lookup(uaString);
             }
         } else {
-            this.userAgent = useragent.parse(uaString)
+            this.userAgent = useragent.parse(uaString);
         };
     }
 
