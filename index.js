@@ -66,22 +66,24 @@ module.exports = class UserAgentParser {
      * @param {Object} [options]
      * @param {boolean} [options.update]
      * @param {boolean} [options.lookup]
+     * @param {function} [useragentLib]
      */
-    constructor(uaString, options) {
+    constructor(uaString, options, useragentLib) {
 
         if (!uaString || typeof uaString !== 'string') {
             throw new Error('Invalid useragent string!');
         }
+        const parser = useragentLib ? useragentLib : useragent;
         this.agentStr = uaString;
         if (options) {
             if (options.update) {
-                useragent(true);
+                parser(true);
             }
             if (options.lookup) {
-                this.userAgent = useragent.lookup(uaString);
+                this.userAgent = parser.lookup(uaString);
             }
         } else {
-            this.userAgent = useragent.parse(uaString);
+            this.userAgent = parser.parse(uaString);
         };
     }
 
