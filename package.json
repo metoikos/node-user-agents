@@ -28,6 +28,6 @@
   },
   "devDependencies": {
     "code": "4.1.0",
-    "lab": "15.1.2 "
+    "lab": "14.3.1"
   }
 }
