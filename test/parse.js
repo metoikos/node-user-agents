@@ -1,7 +1,10 @@
 'use strict';
 
 const Lab = require('lab');
-const {after, before, describe, expect, it} = exports.lab = Lab.script();
+const lab = exports.lab = Lab.script();
+const describe = lab.describe;
+const it = lab.it;
+const expect = require('code').expect;
 const UserAgent = require('../');
 const devices = require('./devices.json');
 const deviceKeys = Object.keys(devices);
