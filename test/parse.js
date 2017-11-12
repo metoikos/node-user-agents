@@ -67,36 +67,42 @@ const browsers = {
 
 describe('User Agents', () => {
 
-    it('should throw an error', () => {
+    it('should throw an error', (done) => {
 
         const throws = function () {
             return new UserAgent();
         };
         expect(throws).to.throw(Error, 'Invalid useragent string!');
+
+        done();
     });
 
-    it('should expose the user agent string', () => {
+    it('should expose the user agent string', (done) => {
 
         const ua = new UserAgent(agents['Chrome Mobile0']);
         expect(ua.agentStr).to.equal(agents['Chrome Mobile0']);
 
+        done();
     });
 
-    it('should expose useragent module ', () => {
+    it('should expose useragent module ', (done) => {
 
         const ua = new UserAgent(agents['Chrome Mobile0']);
         expect(ua.userAgent).to.be.object();
 
+        done();
     });
 
-    it('should return browser', () => {
+    it('should return browser', (done) => {
 
         const ua = new UserAgent(agents['Chrome Mobile0']);
         expect(['IE', 'Chrome', 'Opera', 'Safari', 'Firefox', 'Android', 'Yandex', 'Other']).to.be.in.contain(ua.getBrowser());
 
+        done();
+
     });
 
-    it('should detect correct browser', () => {
+    it('should detect correct browser', (done) => {
 
         const keys = Object.keys(browsers);
         keys.forEach((browser) => {
@@ -104,9 +110,10 @@ describe('User Agents', () => {
             expect(ua.getBrowser()).to.equal(browsers[browser]);
         });
 
+        done();
     });
 
-    it('should detect tablet', () => {
+    it('should detect tablet', (done) => {
 
         const tablets = ['Android13', 'Mobile Safari1'];
         tablets.forEach((tablet) => {
@@ -114,9 +121,10 @@ describe('User Agents', () => {
             expect(ua.isTablet()).to.be.true();
         });
 
+        done();
     });
 
-    it('should detect smart tv', () => {
+    it('should detect smart tv', (done) => {
 
         const devices = ['Chrome19'];
         devices.forEach((device) => {
@@ -124,9 +132,10 @@ describe('User Agents', () => {
             expect(ua.isSmartTv()).to.be.true();
         });
 
+        done();
     });
 
-    it('should detect pc', () => {
+    it('should detect pc', (done) => {
 
         const devices = ['Firefox14', 'Firefox16'];
         devices.forEach((device) => {
@@ -134,9 +143,10 @@ describe('User Agents', () => {
             expect(ua.isPc()).to.be.true();
         });
 
+        done();
     });
 
-    it('should detect bots', () => {
+    it('should detect bots', (done) => {
 
         const devices = ['Baiduspider23', 'Googlebot15'];
         devices.forEach((device) => {
@@ -144,10 +154,11 @@ describe('User Agents', () => {
             expect(ua.isBot()).to.be.true();
         });
 
+        done();
     });
 
 
-    it('should detect os and it should be string', () => {
+    it('should detect os and it should be string', (done) => {
 
         const keys = Object.keys(browsers);
         keys.forEach((browser) => {
@@ -155,6 +166,7 @@ describe('User Agents', () => {
             expect(ua.getOs()).to.be.a.string();
         });
 
+        done();
     });
 
     // this part of the test case borrewd from: python-user-agents
@@ -165,8 +177,9 @@ describe('User Agents', () => {
         const ua = new UserAgent(device.ua_string);
 
         for (let check of checks) {
-            it('it should be valid: ' + check + ' === ' + device[check] + ' for device ' + deviceKey, () => {
+            it('it should be valid: ' + check + ' === ' + device[check] + ' for device ' + deviceKey, (done) => {
                 expect(ua[check]()).to.equal(device[check]);
+                done();
             });
         }
     }
