@@ -1,7 +1,7 @@
 {
   "name": "node-user-agents",
   "version": "1.1.3",
-  "description": "Extended useragent parser for Node. Uses useragent  and extends its functionality ",
+  "description": "Extended useragent parser for Node. Uses useragent and extends its functionality",
   "main": "index.js",
   "scripts": {
     "test": "lab --coverage-exclude coverage -m 5000 -a code"
@@ -22,12 +22,12 @@
   },
   "homepage": "https://github.com/metoikos/node-user-agents#readme",
   "dependencies": {
+    "useragent": "2.2.1",
     "request": "^2.78.0",
-    "useragent": "2.x.x",
     "yamlparser": "0.0.2"
   },
   "devDependencies": {
-    "code": "3.x.x",
-    "lab": "10.x.x"
+    "code": "4.1.0",
+    "lab": "15.1.2 "
   }
 }

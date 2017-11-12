@@ -1,12 +1,12 @@
 'use strict';
-
 const useragent = require('useragent');
 const MOBILE_DEVICE_FAMILIES = [
     'iPhone',
     'iPod',
     'Generic Smartphone',
     'Generic Feature Phone',
-    'PlayStation Vita'
+    'PlayStation Vita',
+    'iOS-Device'
 ];
 
 const PC_OS_FAMILIES = [
@@ -22,7 +22,8 @@ const MOBILE_OS_FAMILIES = [
     'Symbian OS',
     'Bada',
     'Windows CE',
-    'Windows Mobile'
+    'Windows Mobile',
+    'Maemo',
 ];
 
 const MOBILE_BROWSER_FAMILIES = [
@@ -50,13 +51,33 @@ const TOUCH_CAPABLE_OS_FAMILIES = [
     'Windows RT',
     'Windows CE',
     'Windows Mobile',
-    'Firefox OS'
+    'Firefox OS',
+    'MeeGo',
 ];
 
 const TOUCH_CAPABLE_DEVICE_FAMILIES = [
     'BlackBerry Playbook',
     'Blackberry Playbook',
     'Kindle Fire'
+];
+
+const EMAIL_PROGRAM_FAMILIES = [
+    'Outlook',
+    'Windows Live Mail',
+    'AirMail',
+    'Apple Mail',
+    'Outlook',
+    'Thunderbird',
+    'Lightning',
+    'ThunderBrowse',
+    'Windows Live Mail',
+    'The Bat!',
+    'Lotus Notes',
+    'IBM Notes',
+    'Barca',
+    'MailBar',
+    'kmail2',
+    'YahooMobileMail'
 ];
 
 module.exports = class UserAgentParser {
@@ -73,8 +94,9 @@ module.exports = class UserAgentParser {
         if (!uaString || typeof uaString !== 'string') {
             throw new Error('Invalid useragent string!');
         }
+
         const parser = useragentLib ? useragentLib : useragent;
-        this.agentStr = uaString;
+        this.uaString = uaString;
         if (options) {
             if (options.update) {
                 parser(true);
@@ -84,13 +106,16 @@ module.exports = class UserAgentParser {
             }
         } else {
             this.userAgent = parser.parse(uaString);
-        };
+        }
     }
 
+    get agentStr() {
+        return this.uaString
+    }
 
     /**
-     * returns Browser main type
-     * @returns {String}
+     * Returns short browser name for given ua-string
+     * @returns {*}
      */
     getBrowser() {
 
@@ -114,8 +139,8 @@ module.exports = class UserAgentParser {
 
         // Newer Android tablets don't have 'Mobile' in their user agent string,
         // older ones like Galaxy Tab still have 'Mobile' though they're not
-        if (this.agentStr.indexOf('Mobile Safari') === -1 && this.userAgent.family !== 'Firefox Mobile') return true;
-        return false;
+        return this.uaString.indexOf('Mobile Safari') === -1 && this.userAgent.family !== 'Firefox Mobile';
+
     }
 
     /**
@@ -129,7 +154,6 @@ module.exports = class UserAgentParser {
         // Blackberry Bold Touch series begins with 99XX
         if (this.userAgent.device.family.indexOf('Blackberry 99') > -1) return true;
         if (this.userAgent.device.family.indexOf('Blackberry 95') > -1) return true;
-        //if (this.userAgent.device.family.indexOf('Blackberry 95') > -1) return true;
 
         return false;
     }
@@ -142,7 +166,7 @@ module.exports = class UserAgentParser {
 
         if (TOUCH_CAPABLE_OS_FAMILIES.indexOf(this.userAgent.os.family) > -1) return true;
         if (TOUCH_CAPABLE_DEVICE_FAMILIES.indexOf(this.userAgent.device.family) > -1) return true;
-        if (this.userAgent.os.family.startsWith('Windows 8') && this.agentStr.indexOf('Touch') > -1) return true;
+        if (this.userAgent.os.family.startsWith('Windows 8') && this.uaString.indexOf('Touch') > -1) return true;
         if (this.userAgent.os.family.indexOf('BlackBerry') && this._isBlackberryTouchCapableDevice()) return true;
 
         return false;
@@ -161,15 +185,13 @@ module.exports = class UserAgentParser {
         if ((this.userAgent.os.family === 'Android' || this.userAgent.os.family === 'Firefox OS') && !this.isTablet()) return true;
         if (this.userAgent.os.family === 'BlackBerry OS' && this.userAgent.device.family !== 'Blackberry Playbook') return true;
         if (MOBILE_OS_FAMILIES.indexOf(this.userAgent.os.family) > -1) return true;
-        // TODO: remove after https://github.com/tobie/ua-parser/issues/126 is closed
-        if (this.agentStr.indexOf('J2ME') > -1 || this.agentStr.indexOf('MIDP') > -1) return true;
-        // his is here mainly to detect Google's Mobile Spider
-        if (this.agentStr.indexOf('iPhone;') > -1) return true;
-        if (this.agentStr.indexOf('Googlebot-Mobile') > -1) return true;
+        // this is here mainly to detect Google's Mobile Spider
+        if (this.uaString.indexOf('iPhone;') > -1) return true;
+        if (this.uaString.indexOf('Googlebot-Mobile') > -1) return true;
         // Mobile Spiders should be identified as mobile
         if (this.userAgent.device.family === 'Spider' && this.userAgent.family.indexOf('Mobile') > -1) return true;
         // Nokia mobile
-        if (this.agentStr.indexOf('NokiaBrowser') > -1 && this.agentStr.indexOf('Mobile') > -1) return true;
+        if (this.uaString.indexOf('NokiaBrowser') > -1 && this.uaString.indexOf('Mobile') > -1) return true;
 
         return false;
     }
@@ -200,11 +222,11 @@ module.exports = class UserAgentParser {
     isPc() {
 
         // Returns True for 'PC' devices (Windows, Mac and Linux)
-        if (this.agentStr.indexOf('Windows NT') > -1 || PC_OS_FAMILIES.indexOf(this.userAgent.os.family) > -1) return true;
-        if (this.userAgent.os.family === 'Mac OS X' && this.agentStr.indexOf('Silk') === -1) return true;
+        if (this.uaString.indexOf('Windows NT') > -1 || PC_OS_FAMILIES.indexOf(this.userAgent.os.family) > -1) return true;
         // Maemo has 'Linux' and 'X11' in UA, but it is not for PC
-        if (this.agentStr.indexOf('Maemo') > -1) return true;
-        if (this.agentStr.indexOf('Linux') && this.agentStr.indexOf('X11') > -1) return true;
+        if (this.uaString.indexOf('Maemo') > -1) return false;
+        if (this.userAgent.os.family.indexOf('Chrome OS') > -1) return true;
+        if (this.uaString.indexOf('Linux') && this.uaString.indexOf('X11') > -1) return true;
 
         return false;
     }
@@ -224,7 +246,7 @@ module.exports = class UserAgentParser {
      */
     getOs() {
 
-        var os = this.userAgent.os.family;
+        let os = this.userAgent.os.family;
         if (os.indexOf('Windows') > -1 && os.indexOf('Phone') === -1) os = 'Windows';
 
         return os
@@ -237,9 +259,14 @@ module.exports = class UserAgentParser {
     isSmartTv() {
 
         if (this.userAgent.os.family === 'GoogleTV') return true;
-        if (this.agentStr.indexOf('SmartTV') > -1 || this.agentStr.indexOf('SMART-TV') > -1) return true;
+        return this.uaString.indexOf('SmartTV') > -1 || this.uaString.indexOf('SMART-TV') > -1;
+    }
 
-        return false;
+    /**
+     * Detects if current device is email client or not
+     */
+    isEmailClient() {
+        return EMAIL_PROGRAM_FAMILIES.indexOf(this.userAgent.os.family) > -1;
     }
 
     /**
@@ -253,7 +280,8 @@ module.exports = class UserAgentParser {
         else if (this.isPc()) return 'pc';
         else if (this.isSmartTv()) return 'smarttv';
         else if (this.isBot()) return 'bot';
+        else if (this.isEmailClient()) return 'email-client';
 
         return 'other';
     }
-}
+};
