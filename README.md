@@ -13,6 +13,10 @@ Extends [useragents] module and provides [python-user-agents] like functionality
 npm install --save node-user-agents
 ```
 
+```no-highlight
+yarn add node-user-agents
+```
+
 ### Usage:
 ```js
 const UserAgent = require('node-user-agents');
