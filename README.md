@@ -30,7 +30,7 @@ console.log(useragent.isMobile());
 
 While using this module you can still access *useragent* module through ```useragent.userAgent``` property, for example ```console.log(useragent.userAgent.family);```.
 
-Also you can access user agent string via ```useragent.agentStr```
+Also you can access user agent string via ```useragent.uaString```
 
 ### Api:
 This module provides these additional methods.
