@@ -1,10 +1,8 @@
-'use strict';
-
-const Lab = require('lab');
-const lab = exports.lab = Lab.script();
-const describe = lab.describe;
-const it = lab.it;
-const expect = require('code').expect;
+/**
+ * Created by metoikos on 13.11.2017.
+ * Project: node-user-agents
+ */
+"use strict";
 const UserAgent = require('../');
 const devices = require('./devices.json');
 const deviceKeys = Object.keys(devices);
@@ -65,14 +63,13 @@ const browsers = {
     'Yandex Browser24': 'Yandex'
 };
 
-describe('User Agents', () => {
-
+describe('User Agents', function () {
     it('should throw an error', (done) => {
 
         const throws = function () {
             return new UserAgent();
         };
-        expect(throws).to.throw(Error, 'Invalid useragent string!');
+        expect(throws).toThrow(new Error('Invalid useragent string!'));
 
         done();
     });
@@ -80,7 +77,7 @@ describe('User Agents', () => {
     it('should expose the user agent string', (done) => {
 
         const ua = new UserAgent(agents['Chrome Mobile0']);
-        expect(ua.agentStr).to.equal(agents['Chrome Mobile0']);
+        expect(ua.agentStr).toEqual(agents['Chrome Mobile0']);
 
         done();
     });
@@ -88,7 +85,7 @@ describe('User Agents', () => {
     it('should expose useragent module ', (done) => {
 
         const ua = new UserAgent(agents['Chrome Mobile0']);
-        expect(ua.userAgent).to.be.object();
+        expect(ua.userAgent).toEqual(jasmine.any(Object));
 
         done();
     });
@@ -96,7 +93,7 @@ describe('User Agents', () => {
     it('should return browser', (done) => {
 
         const ua = new UserAgent(agents['Chrome Mobile0']);
-        expect(['IE', 'Chrome', 'Opera', 'Safari', 'Firefox', 'Android', 'Yandex', 'Other']).to.be.in.contain(ua.getBrowser());
+        expect(['IE', 'Chrome', 'Opera', 'Safari', 'Firefox', 'Android', 'Yandex', 'Other']).toContain(ua.getBrowser());
 
         done();
 
@@ -107,7 +104,7 @@ describe('User Agents', () => {
         const keys = Object.keys(browsers);
         keys.forEach((browser) => {
             let ua = new UserAgent(agents[browser]);
-            expect(ua.getBrowser()).to.equal(browsers[browser]);
+            expect(ua.getBrowser()).toEqual(browsers[browser]);
         });
 
         done();
@@ -118,7 +115,7 @@ describe('User Agents', () => {
         const tablets = ['Android13', 'Mobile Safari1'];
         tablets.forEach((tablet) => {
             let ua = new UserAgent(agents[tablet]);
-            expect(ua.isTablet()).to.be.true();
+            expect(ua.isTablet()).toBe(true);
         });
 
         done();
@@ -129,7 +126,7 @@ describe('User Agents', () => {
         const devices = ['Chrome19'];
         devices.forEach((device) => {
             let ua = new UserAgent(agents[device]);
-            expect(ua.isSmartTv()).to.be.true();
+            expect(ua.isSmartTv()).toBe(true);
         });
 
         done();
@@ -140,7 +137,7 @@ describe('User Agents', () => {
         const devices = ['Firefox14', 'Firefox16'];
         devices.forEach((device) => {
             let ua = new UserAgent(agents[device]);
-            expect(ua.isPc()).to.be.true();
+            expect(ua.isPc()).toBe(true);
         });
 
         done();
@@ -151,7 +148,7 @@ describe('User Agents', () => {
         const devices = ['Baiduspider23', 'Googlebot15'];
         devices.forEach((device) => {
             let ua = new UserAgent(agents[device]);
-            expect(ua.isBot()).to.be.true();
+            expect(ua.isBot()).toBe(true);
         });
 
         done();
@@ -163,7 +160,7 @@ describe('User Agents', () => {
         const keys = Object.keys(browsers);
         keys.forEach((browser) => {
             let ua = new UserAgent(agents[browser]);
-            expect(ua.getOs()).to.be.a.string();
+            expect(ua.getOs()).toEqual(jasmine.any(String))
         });
 
         done();
@@ -178,7 +175,7 @@ describe('User Agents', () => {
 
         for (let check of checks) {
             it('it should be valid: ' + check + ' === ' + device[check] + ' for device ' + deviceKey, (done) => {
-                expect(ua[check]()).to.equal(device[check]);
+                expect(ua[check]()).toEqual(device[check]);
                 done();
             });
         }

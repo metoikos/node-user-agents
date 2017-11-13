@@ -4,7 +4,7 @@
   "description": "Extended useragent parser for Node. Uses useragent and extends its functionality",
   "main": "index.js",
   "scripts": {
-    "test": "lab --coverage-exclude coverage -m 5000 -a code"
+    "test": "jasmine test/module.tests.js"
   },
   "repository": {
     "type": "git",
@@ -22,12 +22,11 @@
   },
   "homepage": "https://github.com/metoikos/node-user-agents#readme",
   "dependencies": {
-    "useragent": "2.2.1",
     "request": "^2.78.0",
+    "useragent": "2.2.1",
     "yamlparser": "0.0.2"
   },
   "devDependencies": {
-    "code": "4.1.0",
-    "lab": "14.3.1"
+    "jasmine": "^2.8.0"
   }
 }
