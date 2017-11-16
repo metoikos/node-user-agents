@@ -1,6 +1,6 @@
 {
   "name": "node-user-agents",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Extended useragent parser for Node. Uses useragent and extends its functionality",
   "main": "index.js",
   "scripts": {
