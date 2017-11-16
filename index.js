@@ -185,6 +185,7 @@ module.exports = class UserAgentParser {
         if ((this.userAgent.os.family === 'Android' || this.userAgent.os.family === 'Firefox OS') && !this.isTablet()) return true;
         if (this.userAgent.os.family === 'BlackBerry OS' && this.userAgent.device.family !== 'Blackberry Playbook') return true;
         if (MOBILE_OS_FAMILIES.indexOf(this.userAgent.os.family) > -1) return true;
+        if (this.agentStr.indexOf('J2ME') > -1 || this.agentStr.indexOf('MIDP') > -1) return true;
         // this is here mainly to detect Google's Mobile Spider
         if (this.uaString.indexOf('iPhone;') > -1) return true;
         if (this.uaString.indexOf('Googlebot-Mobile') > -1) return true;
@@ -224,6 +225,7 @@ module.exports = class UserAgentParser {
         // Returns True for 'PC' devices (Windows, Mac and Linux)
         if (this.uaString.indexOf('Windows NT') > -1 || PC_OS_FAMILIES.indexOf(this.userAgent.os.family) > -1) return true;
         // Maemo has 'Linux' and 'X11' in UA, but it is not for PC
+        if (this.userAgent.os.family === 'Mac OS X' && this.agentStr.indexOf('Silk') === -1) return true;
         if (this.uaString.indexOf('Maemo') > -1) return false;
         if (this.userAgent.os.family.indexOf('Chrome OS') > -1) return true;
         if (this.uaString.indexOf('Linux') && this.uaString.indexOf('X11') > -1) return true;
