@@ -76,7 +76,7 @@
     "isMobile": false,
     "isPc": true,
     "isTablet": false,
-    "isTouchCapable": true,
+    "isTouchCapable": false,
     "ua_string": "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0; Touch)",
     "str": "PC / Windows 8 / IE 10"
   },
@@ -264,8 +264,8 @@
     "isBot": false,
     "isMobile": false,
     "isPc": true,
-    "isTablet": true,
-    "isTouchCapable": true,
+    "isTablet": false,
+    "isTouchCapable": false,
     "ua_string": "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; ARM; Trident/6.0)",
     "str": "PC / Windows RT / IE 10"
   },
@@ -335,7 +335,7 @@
   "windows_95": {
     "isBot": false,
     "isMobile": false,
-    "isPc": true,
+    "isPc": false,
     "isTablet": false,
     "isTouchCapable": false,
     "ua_string": "Mozilla/5.0 (Windows; U; Win 9x 4.90; en-GB; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1",

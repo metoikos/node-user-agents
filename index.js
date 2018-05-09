@@ -119,7 +119,7 @@ module.exports = class UserAgentParser {
      */
     getBrowser() {
 
-        if (this.userAgent.family === 'IE' || this.userAgent.family === 'IE Mobile') return 'IE';
+        if (this.userAgent.family === 'IE' || this.userAgent.family === 'IE Mobile' || this.userAgent.family === 'Zune') return 'IE';
         else if (this.userAgent.family.indexOf('Chrome') > -1) return 'Chrome';
         else if (this.userAgent.family.indexOf('Opera') > -1) return 'Opera';
         else if (this.userAgent.family.indexOf('Safari') > -1) return 'Safari';
