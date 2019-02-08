@@ -32,7 +32,9 @@ const agents = {
     'BlackBerry WebKit21': 'Mozilla/5.0 (BlackBerry; U; BlackBerry 9900; en) AppleWebKit/534.11+ (KHTML, like Gecko) Version/7.1.0.346 Mobile Safari/534.11+',
     'BlackBerry WebKit22': 'Mozilla/5.0 (BlackBerry; U; BlackBerry 9800; fr) AppleWebKit/534.1+ (KHTML, like Gecko) Version/6.0.0.246 Mobile Safari/534.1+',
     Baiduspider23: 'Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)',
-    'Yandex Browser24': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.12785 YaBrowser/13.12.1599.12785 Safari/537.36'
+    'Yandex Browser24': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.12785 YaBrowser/13.12.1599.12785 Safari/537.36',
+    'MS Edge': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134',
+    'MS Edge2': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 Edge/16.16299',
 };
 
 const browsers = {
@@ -60,7 +62,9 @@ const browsers = {
     'BlackBerry WebKit21': 'Other',
     'BlackBerry WebKit22': 'Other',
     Baiduspider23: 'Other',
-    'Yandex Browser24': 'Yandex'
+    'Yandex Browser24': 'Yandex',
+    'MS Edge': 'Edge',
+    'MS Edge2': 'Edge',
 };
 
 describe('User Agents', function () {

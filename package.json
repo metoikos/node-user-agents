@@ -22,11 +22,11 @@
   },
   "homepage": "https://github.com/metoikos/node-user-agents#readme",
   "dependencies": {
-    "request": "^2.87.0",
+    "request": "^2.88.0",
     "useragent": "^2.3.0",
     "yamlparser": "0.0.2"
   },
   "devDependencies": {
-    "jasmine": "^2.8.0"
+    "jasmine": "^3.3.1"
   }
 }

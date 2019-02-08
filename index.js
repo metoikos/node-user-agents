@@ -126,6 +126,7 @@ module.exports = class UserAgentParser {
         else if (this.userAgent.family.indexOf('Firefox') > -1) return 'Firefox';
         else if (this.userAgent.family.indexOf('Android') > -1) return 'Android';
         else if (this.userAgent.family.indexOf('Yandex') > -1) return 'Yandex';
+        else if (this.userAgent.family.indexOf('Edge') > -1) return 'Edge';
 
         return 'Other';
     }

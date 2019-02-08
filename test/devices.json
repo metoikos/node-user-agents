@@ -358,5 +358,14 @@
     "isTouchCapable": false,
     "ua_string": "Mozilla/5.0 (X11; CrOS i686 0.12.433) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.77 Safari/534.30",
     "str": "CrOS"
+  },
+  "edge": {
+    "isBot": false,
+    "isMobile": false,
+    "isPc": true,
+    "isTablet": false,
+    "isTouchCapable": false,
+    "ua_string": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 Edge/16.16299",
+    "str": "Edge"
   }
 }
