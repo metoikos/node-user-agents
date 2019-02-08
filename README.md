@@ -1,6 +1,9 @@
+[![npm version](https://badge.fury.io/js/node-user-agents.svg)](https://badge.fury.io/js/node-user-agents) 
 [![Build Status](https://travis-ci.org/metoikos/node-user-agents.svg?branch=master)](https://travis-ci.org/metoikos/node-user-agents)
 
 # Node User Agents
+
+Smart user-agent parser for Node.
 
 Extends [useragents] module and provides [python-user-agents] like functionality. Exposes custom defined functions like isMobile(), isTablet(), isPc()
 
