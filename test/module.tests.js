@@ -172,12 +172,12 @@ describe('User Agents', function () {
 
     // this part of the test case borrewd from: python-user-agents
     // ref: https://github.com/selwin/python-user-agents/blob/master/user_agents/tests.py
+    const deviceChecks = ['isBot', 'isMobile', 'isPc', 'isTablet', 'isTouchCapable'];
     for (let deviceKey of deviceKeys) {
         const device = devices[deviceKey];
-        const checks = ['isBot', 'isMobile', 'isPc', 'isTablet', 'isTouchCapable'];
         const ua = new UserAgent(device.ua_string);
 
-        for (let check of checks) {
+        for (let check of deviceChecks) {
             it('it should be valid: ' + check + ' === ' + device[check] + ' for device ' + deviceKey, (done) => {
                 expect(ua[check]()).toEqual(device[check]);
                 done();
