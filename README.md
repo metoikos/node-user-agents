@@ -5,10 +5,10 @@
 
 Smart user-agent parser for Node.
 
-Extends [useragents] module and provides [python-user-agents] like functionality. Exposes custom defined functions like isMobile(), isTablet(), isPc()
+Extends [useragent] module and provides [python-user-agents] like functionality. Exposes custom defined functions like isMobile(), isTablet(), isPc()
 
 [python-user-agents]: https://github.com/selwin/python-user-agents
-[useragents]: https://github.com/3rd-Eden/useragent
+[useragent]: https://github.com/3rd-Eden/useragent
 
 ### Installation:
 
@@ -31,7 +31,7 @@ const useragent = new UserAgent(uaString);
 console.log(useragent.isMobile());
 ```
 
-While using this module you can still access *useragent* module through ```useragent.userAgent``` property, for example ```console.log(useragent.userAgent.family);```.
+While using this module you can still access `useragent` module through `useragent.userAgent` property, for example ```console.log(useragent.userAgent.family);```.
 
 Also you can access user agent string via ```useragent.uaString```
 
@@ -51,10 +51,10 @@ console.log(useragent.isMobile());
 
 ### Options
 
-You can provide an option to this library to change **useragents'** module behaviour.
+You can provide an option to this library to change **useragent'** module behaviour.
 
-* lookup: uses useragents.lookup instead of useragents.parse
-* update: updates useragents database with latest version
+* lookup: uses useragent.lookup instead of useragent.parse
+* update: updates useragent database with latest version
 
 ```js
 
@@ -66,9 +66,9 @@ console.log(useragent.isMobile());
 
 #### Your own useragentLib
 
-You can pass your own useragents instance with the last parameter in the constructor method.
+You can pass your own `useragent` instance with the last parameter in the constructor method.
 This way instead of using the version shipped with this library you can use your
-own modified or latest version of useragents.
+own modified or latest version of `useragent`.
 
 ```js
 
