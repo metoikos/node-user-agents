@@ -90,27 +90,72 @@ module.exports = class UserAgentParser {
      * @param {function} [useragentLib]
      */
     constructor(uaString, options, useragentLib) {
+        this.lookup = false;
 
-        if (!uaString || typeof uaString !== 'string') {
-            throw new Error('Invalid useragent string!');
+        if (uaString && typeof uaString === 'string') {
+            this.uaString = uaString;
+
+            if (options && typeof options === 'function') {
+                this._setParser(options);
+            } else {
+                this._setParser(useragentLib);
+                this._parseOptions(options);
+            }
+        } else if (uaString && typeof uaString === 'object') {
+            this._setParser(useragentLib);
+            this._parseOptions(uaString);
+        } else {
+            this._setParser(uaString);
         }
+    }
 
-        const parser = useragentLib ? useragentLib : useragent;
-        this.uaString = uaString;
+    _parseOptions(options) {
         if (options) {
             if (options.update) {
-                parser(true);
+                this.updateParser();
             }
+
+            // set global lookup flag to true
             if (options.lookup) {
-                this.userAgent = parser.lookup(uaString);
+                this.lookup = true;
             }
-        } else {
-            this.userAgent = parser.parse(uaString);
         }
+
+        // we only parse uaString if exists
+        if (this.uaString) {
+            this.parse(this.uaString);
+        }
+    }
+
+    _setParser(useragentLib) {
+        this.parser = useragentLib ? useragentLib : useragent;
     }
 
     get agentStr() {
         return this.uaString
+    }
+
+    updateParser() {
+        this.parser(true);
+    }
+
+    parse(uaString, lookup) {
+        if (!uaString || typeof uaString !== 'string') {
+            throw new Error('Invalid useragent string!');
+        }
+
+        this.uaString = uaString;
+
+        // if lookup property is true then we should use it
+        // but we might want to disable per parse, for memory reasons
+        if (lookup === false) {
+            this.userAgent = this.parser.parse(uaString);
+        } else if (this.lookup === true || lookup === true) {
+            this.userAgent = this.parser.lookup(uaString);
+        } else {
+            // console.log("Last line");
+            this.userAgent = this.parser.parse(uaString);
+        }
     }
 
     /**

@@ -5,6 +5,7 @@
 "use strict";
 const UserAgent = require('../');
 const devices = require('./devices.json');
+const myUserAgent = require('useragent');
 const deviceKeys = Object.keys(devices);
 
 const agents = {
@@ -68,21 +69,88 @@ const browsers = {
 };
 
 describe('User Agents', function () {
+
     it('should throw an error', (done) => {
 
-        const throws = function () {
-            return new UserAgent();
-        };
-        expect(throws).toThrow(new Error('Invalid useragent string!'));
+        const ua = new UserAgent();
+        expect(ua.parse).toThrow(new Error('Invalid useragent string!'));
+
+        done();
+    });
+
+    it('should update parser library', (done) => {
+
+        const ua = new UserAgent(agents['Chrome Mobile0'], {update: true});
+        expect(ua.agentStr).toEqual(agents['Chrome Mobile0']);
+
+        done();
+    });
+
+    it('should update parser library and use lookup in the parser', (done) => {
+
+        const ua = new UserAgent(agents['Chrome Mobile0'], {update: true, lookup: true});
+        expect(ua.agentStr).toEqual(agents['Chrome Mobile0']);
+
+        done();
+    });
+
+    it('should use custom parse library', (done) => {
+
+        const ua = new UserAgent(agents['Chrome Mobile0'], {update: true, lookup: true}, myUserAgent);
+        expect(ua.agentStr).toEqual(agents['Chrome Mobile0']);
+
+        done();
+    });
+
+    it('should use custom parse library without options', (done) => {
+
+        const ua = new UserAgent(agents['Chrome Mobile0'], myUserAgent);
+        expect(ua.agentStr).toEqual(agents['Chrome Mobile0']);
+
+        done();
+    });
+
+    it('should start without user agent string', (done) => {
+
+        const ua = new UserAgent({update: true}, myUserAgent);
+        ua.parse(agents['Chrome Mobile0']);
+        expect(ua.agentStr).toEqual(agents['Chrome Mobile0']);
+
+        const ua2 = new UserAgent(myUserAgent);
+        ua2.parse(agents['Chrome Mobile0']);
+        expect(ua2.agentStr).toEqual(agents['Chrome Mobile0']);
+
+        const ua3 = new UserAgent();
+        ua3.parse(agents['Chrome Mobile0']);
+        expect(ua3.agentStr).toEqual(agents['Chrome Mobile0']);
+
+        // set lookup but disable on parse
+        const ua4 = new UserAgent({lookup: true});
+        ua4.parse(agents['Chrome Mobile0'], false);
+        expect(ua4.agentStr).toEqual(agents['Chrome Mobile0']);
 
         done();
     });
 
     it('should expose the user agent string', (done) => {
-
         const ua = new UserAgent(agents['Chrome Mobile0']);
         expect(ua.agentStr).toEqual(agents['Chrome Mobile0']);
 
+        done();
+    });
+
+
+    it('should use lookup in multiple user-agents', (done) => {
+        const ua = new UserAgent({lookup: true});
+        const deviceChecks = ['isBot', 'isMobile', 'isPc', 'isTablet', 'isTouchCapable'];
+
+        for (let deviceKey of deviceKeys) {
+            let device = devices[deviceKey];
+            ua.parse(device.ua_string);
+            for (let check of deviceChecks) {
+                expect(ua[check]()).toEqual(device[check]);
+            }
+        }
         done();
     });
 
@@ -173,12 +241,12 @@ describe('User Agents', function () {
     // this part of the test case borrewd from: python-user-agents
     // ref: https://github.com/selwin/python-user-agents/blob/master/user_agents/tests.py
     const deviceChecks = ['isBot', 'isMobile', 'isPc', 'isTablet', 'isTouchCapable'];
+    const ua = new UserAgent();
     for (let deviceKey of deviceKeys) {
         const device = devices[deviceKey];
-        const ua = new UserAgent(device.ua_string);
-
         for (let check of deviceChecks) {
-            it('it should be valid: ' + check + ' === ' + device[check] + ' for device ' + deviceKey, (done) => {
+            it(`it should be valid: ${check} === ${device[check]} for device ${deviceKey}`, (done) => {
+                ua.parse(device.ua_string);
                 expect(ua[check]()).toEqual(device[check]);
                 done();
             });

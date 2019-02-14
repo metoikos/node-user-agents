@@ -35,6 +35,50 @@ While using this module you can still access *useragent* module through ```usera
 
 Also you can access user agent string via ```useragent.uaString```
 
+There are multiple ways to use this library. You can pass your user-agent string on 
+initialization or you can use `ua.parse(uaString)` method for multiple user-agent
+parsing operations.
+
+```js
+
+const UserAgent = require('node-user-agents');
+const useragent = new UserAgent();
+useragent.parse(uaString); // same result as above
+// logs true
+console.log(useragent.isMobile());
+
+```
+
+### Options
+
+You can provide an option to this library to change **useragents'** module behaviour.
+
+* lookup: uses useragents.lookup instead of useragents.parse
+* update: updates useragents database with latest version
+
+```js
+
+const UserAgent = require('node-user-agents');
+const useragent = new UserAgent(uaString, {lookup: true}); // now use userangets.lookup method
+// logs true
+console.log(useragent.isMobile());
+```
+
+#### Your own useragentLib
+
+You can pass your own useragents instance with the last parameter in the constructor method.
+This way instead of using the version shipped with this library you can use your
+own modified or latest version of useragents.
+
+```js
+
+const myownUserAgentLibrary = require('useragent');
+const UserAgent = require('node-user-agents');
+const useragent = new UserAgent(uaString, {update: true}, myownUserAgentLibrary);
+// logs true
+console.log(useragent.isMobile());
+```
+
 ### Api:
 This module provides these additional methods.
 
