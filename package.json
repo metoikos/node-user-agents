@@ -27,6 +27,6 @@
     "yamlparser": "0.0.2"
   },
   "devDependencies": {
-    "jasmine": "^3.3.1"
+    "jasmine": "^3.5.0"
   }
 }
